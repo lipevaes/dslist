@@ -1,6 +1,5 @@
 package com.devvaes.dslist.controllers;
 
-import com.devvaes.dslist.dto.GameDTO;
 import com.devvaes.dslist.dto.GameListDTO;
 import com.devvaes.dslist.dto.GameMinDTO;
 import com.devvaes.dslist.services.GameListService;
@@ -20,10 +19,19 @@ public class GameListController {
     @Autowired
     private GameListService gameListService;
 
+    @Autowired
+    private GameService gameService;
+
 
     @GetMapping
     public List<GameListDTO> findAll() {
         List<GameListDTO> result = gameListService.findAll();
+        return result;
+    }
+
+    @GetMapping(value = "/{listId}/games")
+    public List<GameMinDTO> findByList(@PathVariable Long listId){
+        List<GameMinDTO> result = gameService.findByList(listId);
         return result;
     }
 }
